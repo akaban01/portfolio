@@ -7,32 +7,46 @@ import ContactForm from '../components/ContactForm.astro';
 const skillGroups = [
   {
     category: 'Languages & Frameworks',
+    icon: '🧩',
     items: ['TypeScript', 'JavaScript', 'React', 'Node.js', 'PHP', 'Python', 'C#', 'Java', 'Groovy'],
   },
   {
     category: 'Frontend & Accessibility',
+    icon: '♿',
     items: ['HTML5', 'CSS/SCSS', 'Bootstrap', 'jQuery', 'Responsive Design', 'Web Accessibility (ADA/WCAG)', 'UI/UX'],
   },
   {
     category: 'CMS Platforms',
+    icon: '🗂️',
     items: ['Crafter CMS', 'Adobe Experience Manager (AEM)', 'WordPress'],
   },
   {
     category: 'Data & APIs',
+    icon: '🔌',
     items: ['REST APIs', 'GraphQL', 'OpenSearch', 'PostgreSQL', 'MySQL', 'SQL Server'],
   },
   {
     category: 'Data Visualization',
+    icon: '📊',
     items: ['Highcharts', 'Google Charts', 'D3.js'],
   },
   {
     category: 'DevOps & Cloud',
+    icon: '☁️',
     items: ['Git', 'GitHub', 'CI/CD', 'Docker', 'AWS', 'Azure'],
   },
   {
     category: 'Practices',
+    icon: '🤝',
     items: ['Agile (Scrum/Kanban)', 'Full-stack Development'],
   },
+];
+
+const stats = [
+  { value: '10+', label: 'Years experience' },
+  { value: '5', label: 'Companies' },
+  { value: '2', label: 'Enterprise CMS platforms' },
+  { value: 'WCAG', label: 'Accessibility-first builds' },
 ];
 
 const experience = [
@@ -107,18 +121,22 @@ const experience = [
 const projects = [
   {
     title: 'AI-Native Corporate CMS',
+    icon: '🧠',
+    featured: true,
     description:
       'Designed and built a custom CMS for corporate workflows from the ground up, with AI woven into the content pipeline and granular roles & permissions for enterprise teams. Also covers the essentials expected of a modern CMS: version history and drafts, a media library, approval workflows, scheduled publishing, audit logs, full-text search, and an API for headless integrations.',
     tags: ['AI-Native', 'RBAC', 'Workflow Automation', 'Enterprise'],
   },
   {
     title: 'Stripe Payment Processing',
+    icon: '💳',
     description:
       'Integrated Stripe to handle end-to-end payment processing for a production application, covering checkout, invoicing, and transaction management.',
     tags: ['Stripe', 'Payments', 'API Integration'],
   },
   {
     title: 'Desktop-to-Browser Extension Migration',
+    icon: '🔀',
     description:
       'Converted a suite of desktop-heavy applications into lightweight, user-friendly browser extensions, making everyday workflows smoother and more efficient. The move also shrank the attack surface and strengthened data, management, and security-related workflows across the board.',
     tags: ['Browser Extensions', 'Security', 'Workflow Automation'],
@@ -129,66 +147,111 @@ const projects = [
 <Layout>
   <Header />
 
-  <main>
-    <section class="mx-auto max-w-3xl px-6 pb-16 pt-24">
-      <h1 class="mb-3 text-4xl font-bold text-neutral-900 dark:text-neutral-100">
-        Hi, I'm <span class="text-indigo-600 dark:text-indigo-400">Faizan</span>.
-      </h1>
-      <p class="mb-7 max-w-lg text-lg text-neutral-600 dark:text-neutral-400">
-        Software developer specializing in CMS platforms, full-stack web development, and accessible,
-        data-driven interfaces.
-      </p>
-      <div class="flex gap-3">
-        <a
-          href="#projects"
-          class="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90"
-        >
-          See my work
-        </a>
-        <a
-          href="#contact"
-          class="rounded-lg border border-neutral-200 px-5 py-2.5 text-sm font-semibold text-neutral-900 hover:bg-neutral-50 dark:border-neutral-800 dark:text-neutral-100 dark:hover:bg-neutral-900"
-        >
-          Get in touch
-        </a>
+  <main class="overflow-x-hidden">
+    <section class="relative px-6 pb-24 pt-28 sm:px-8 sm:pt-36">
+      <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+        <div class="animate-blob absolute -left-32 -top-32 h-96 w-96 rounded-full bg-indigo-400/40 blur-3xl dark:bg-indigo-600/25"></div>
+        <div class="animate-blob animation-delay-2000 absolute -right-20 top-0 h-96 w-96 rounded-full bg-fuchsia-400/30 blur-3xl dark:bg-fuchsia-600/20"></div>
+        <div class="animate-blob animation-delay-4000 absolute bottom-0 left-1/3 h-96 w-96 rounded-full bg-cyan-400/30 blur-3xl dark:bg-cyan-600/15"></div>
+      </div>
+
+      <div class="mx-auto max-w-5xl">
+        <div data-reveal class="mb-6 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/70 px-3.5 py-1.5 text-xs font-medium text-neutral-600 backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-900/70 dark:text-neutral-400">
+          <span class="relative flex h-2 w-2">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+          </span>
+          Software Developer @ ERCOT
+        </div>
+
+        <h1 data-reveal class="mb-5 max-w-2xl font-display text-5xl font-bold leading-[1.1] tracking-tight text-neutral-900 sm:text-6xl lg:text-7xl dark:text-neutral-100">
+          Hi, I'm <span class="text-gradient-animate">Faizan</span>.
+        </h1>
+        <p data-reveal style="--reveal-delay:80ms" class="mb-8 max-w-lg text-lg text-neutral-600 dark:text-neutral-400">
+          Software developer specializing in CMS platforms, full-stack web development, and accessible,
+          data-driven interfaces.
+        </p>
+        <div data-reveal style="--reveal-delay:160ms" class="flex flex-wrap gap-3">
+          <a
+            href="#projects"
+            class="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-indigo-600 to-fuchsia-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-600/25 transition hover:shadow-xl hover:shadow-indigo-600/40"
+          >
+            See my work
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform group-hover:translate-x-0.5">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <a
+            href="#contact"
+            class="rounded-lg border border-neutral-200 px-5 py-2.5 text-sm font-semibold text-neutral-900 transition hover:border-indigo-300 hover:bg-neutral-50 dark:border-neutral-800 dark:text-neutral-100 dark:hover:border-indigo-800 dark:hover:bg-neutral-900"
+          >
+            Get in touch
+          </a>
+        </div>
+      </div>
+
+      <a href="#about" aria-label="Scroll to About section" class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 animate-bounce text-neutral-400 hover:text-indigo-500 sm:block dark:text-neutral-600">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </a>
+    </section>
+
+    <section id="about" class="border-t border-neutral-200/80 px-6 py-16 sm:px-8 sm:py-20 dark:border-neutral-800/80">
+      <div class="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[1.3fr_1fr] lg:gap-16">
+        <div data-reveal>
+          <h2 class="mb-5 font-display text-2xl font-semibold text-neutral-900 dark:text-neutral-100">About</h2>
+          <p class="mb-4 text-neutral-600 dark:text-neutral-400">
+            Software developer with experience across content management platforms (Crafter CMS, Adobe
+            Experience Manager), e-commerce, and full-stack web development. Currently building and
+            maintaining CMS solutions at ERCOT, where I've architected reusable component systems,
+            ADA/WCAG-compliant interfaces, and a custom lightweight CMS that cut licensing costs across
+            teams.
+          </p>
+          <p class="mb-5 text-neutral-600 dark:text-neutral-400">
+            Before that, I modernized e-commerce storefronts at Deluxe Corporation and built an
+            end-to-end release-notes platform at Sabre. I care about accessible, maintainable interfaces
+            and enjoy the kind of problem where design, data, and infrastructure all have to work
+            together. Bachelor's degree, Minnesota State University, Mankato.
+          </p>
+          <a
+            href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}resume.pdf`}
+            class="group inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 hover:underline dark:text-indigo-400"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download résumé (PDF)
+          </a>
+        </div>
+
+        <div data-reveal style="--reveal-delay:120ms" class="grid grid-cols-2 gap-4">
+          {stats.map((stat) => (
+            <div class="rounded-2xl border border-neutral-200 bg-white/60 p-5 text-center backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-indigo-300 dark:border-neutral-800 dark:bg-neutral-900/60 dark:hover:border-indigo-800">
+              <div class="font-display text-2xl font-bold text-gradient-animate sm:text-3xl">{stat.value}</div>
+              <div class="mt-1 text-xs text-neutral-500 dark:text-neutral-500">{stat.label}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
 
-    <section id="about" class="border-t border-neutral-200 px-6 py-14 dark:border-neutral-800">
-      <div class="mx-auto max-w-3xl">
-        <h2 class="mb-5 text-2xl font-semibold text-neutral-900 dark:text-neutral-100">About</h2>
-        <p class="mb-4 text-neutral-600 dark:text-neutral-400">
-          Software developer with experience across content management platforms (Crafter CMS, Adobe
-          Experience Manager), e-commerce, and full-stack web development. Currently building and
-          maintaining CMS solutions at ERCOT, where I've architected reusable component systems,
-          ADA/WCAG-compliant interfaces, and a custom lightweight CMS that cut licensing costs across
-          teams.
-        </p>
-        <p class="mb-5 text-neutral-600 dark:text-neutral-400">
-          Before that, I modernized e-commerce storefronts at Deluxe Corporation and built an
-          end-to-end release-notes platform at Sabre. I care about accessible, maintainable interfaces
-          and enjoy the kind of problem where design, data, and infrastructure all have to work
-          together. Bachelor's degree, Minnesota State University, Mankato.
-        </p>
-        <a
-          href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}resume.pdf`}
-          class="text-sm font-semibold text-indigo-600 hover:underline dark:text-indigo-400"
-        >
-          Download résumé (PDF) →
-        </a>
-      </div>
-    </section>
-
-    <section id="skills" class="border-t border-neutral-200 px-6 py-14 dark:border-neutral-800">
-      <div class="mx-auto max-w-3xl">
-        <h2 class="mb-5 text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Skills</h2>
-        <div class="grid gap-4">
-          {skillGroups.map((group) => (
-            <div>
-              <h3 class="mb-2 text-sm font-semibold text-neutral-500 dark:text-neutral-500">{group.category}</h3>
+    <section id="skills" class="border-t border-neutral-200/80 px-6 py-16 sm:px-8 sm:py-20 dark:border-neutral-800/80">
+      <div class="mx-auto max-w-5xl">
+        <h2 data-reveal class="mb-8 font-display text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Skills</h2>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {skillGroups.map((group, i) => (
+            <div data-reveal style={`--reveal-delay:${Math.min(i * 60, 300)}ms`} class="rounded-2xl border border-neutral-200 bg-white/60 p-5 backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-indigo-300 dark:border-neutral-800 dark:bg-neutral-900/60 dark:hover:border-indigo-800">
+              <h3 class="mb-3 flex items-center gap-2 text-sm font-semibold text-neutral-700 dark:text-neutral-300">
+                <span aria-hidden="true">{group.icon}</span>
+                {group.category}
+              </h3>
               <div class="flex flex-wrap gap-2">
                 {group.items.map((skill) => (
-                  <span class="rounded-full bg-neutral-100 px-3 py-1.5 text-sm text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+                  <span class="rounded-full bg-neutral-100 px-3 py-1.5 text-xs text-neutral-700 transition-colors hover:bg-gradient-to-r hover:from-indigo-600 hover:to-fuchsia-600 hover:text-white dark:bg-neutral-800 dark:text-neutral-300">
                     {skill}
                   </span>
                 ))}
@@ -199,71 +262,116 @@ const projects = [
       </div>
     </section>
 
-    <section id="experience" class="border-t border-neutral-200 px-6 py-14 dark:border-neutral-800">
-      <div class="mx-auto max-w-3xl">
-        <h2 class="mb-5 text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Experience</h2>
-        <div class="grid gap-8">
-          {experience.map((job) => (
-            <div>
-              <div class="mb-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                <h3 class="font-semibold text-neutral-900 dark:text-neutral-100">
-                  {job.role} · {job.company}
-                </h3>
-                <span class="text-sm text-neutral-500 dark:text-neutral-500">{job.dates}</span>
+    <section id="experience" class="border-t border-neutral-200/80 px-6 py-16 sm:px-8 sm:py-20 dark:border-neutral-800/80">
+      <div class="mx-auto max-w-5xl">
+        <h2 data-reveal class="mb-10 font-display text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Experience</h2>
+        <div class="relative border-l border-neutral-200 pl-8 dark:border-neutral-800">
+          <div class="grid gap-8">
+            {experience.map((job, i) => (
+              <div data-reveal style={`--reveal-delay:${Math.min(i * 70, 280)}ms`} class="group relative">
+                <span class="absolute -left-[41px] top-1.5 h-3.5 w-3.5 rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-500 ring-4 ring-white transition-transform group-hover:scale-125 dark:ring-neutral-950"></span>
+                <div class="rounded-2xl border border-neutral-200 bg-white/60 p-5 backdrop-blur-sm transition hover:border-indigo-300 dark:border-neutral-800 dark:bg-neutral-900/60 dark:hover:border-indigo-800">
+                  <div class="mb-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                    <h3 class="font-display font-semibold text-neutral-900 dark:text-neutral-100">
+                      {job.role} · {job.company}
+                    </h3>
+                    <span class="rounded-full bg-neutral-100 px-2.5 py-1 text-xs font-medium text-neutral-500 dark:bg-neutral-800 dark:text-neutral-500">
+                      {job.dates}
+                    </span>
+                  </div>
+                  <ul class="list-disc space-y-1.5 pl-5 text-sm text-neutral-600 dark:text-neutral-400">
+                    {job.bullets.slice(0, 4).map((bullet) => <li>{bullet}</li>)}
+                  </ul>
+                  {job.bullets.length > 4 && (
+                    <details class="mt-2 group/details">
+                      <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:underline dark:text-indigo-400">
+                        Show {job.bullets.length - 4} more
+                      </summary>
+                      <ul class="mt-1.5 list-disc space-y-1.5 pl-5 text-sm text-neutral-600 dark:text-neutral-400">
+                        {job.bullets.slice(4).map((bullet) => <li>{bullet}</li>)}
+                      </ul>
+                    </details>
+                  )}
+                </div>
               </div>
-              <ul class="list-disc space-y-1.5 pl-5 text-sm text-neutral-600 dark:text-neutral-400">
-                {job.bullets.map((bullet) => <li>{bullet}</li>)}
-              </ul>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="border-t border-neutral-200/80 px-6 py-16 sm:px-8 sm:py-20 dark:border-neutral-800/80">
+      <div class="mx-auto max-w-5xl">
+        <h2 data-reveal class="mb-8 font-display text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Projects</h2>
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project, i) => (
+            <div data-reveal style={`--reveal-delay:${i * 90}ms`}>
+              <ProjectCard {...project} />
             </div>
           ))}
         </div>
       </div>
     </section>
 
-    <section id="projects" class="border-t border-neutral-200 px-6 py-14 dark:border-neutral-800">
+    <section id="contact" class="border-t border-neutral-200/80 px-6 py-16 sm:px-8 sm:py-20 dark:border-neutral-800/80">
       <div class="mx-auto max-w-3xl">
-        <h2 class="mb-5 text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Projects</h2>
-        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
-          {projects.map((project) => <ProjectCard {...project} />)}
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="border-t border-neutral-200 px-6 py-14 dark:border-neutral-800">
-      <div class="mx-auto max-w-3xl">
-        <h2 class="mb-3 text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Contact</h2>
-        <p class="mb-5 text-neutral-600 dark:text-neutral-400">
+        <h2 data-reveal class="mb-3 font-display text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Contact</h2>
+        <p data-reveal class="mb-6 text-neutral-600 dark:text-neutral-400">
           Want to work together or just say hi? Send a message directly, or reach out on:
         </p>
-        <div class="mb-8 flex flex-wrap gap-5 font-semibold">
-          <a href="mailto:akaban01@gmail.com" class="text-indigo-600 hover:underline dark:text-indigo-400">
+        <div data-reveal class="mb-8 flex flex-wrap gap-3">
+          <a
+            href="mailto:akaban01@gmail.com"
+            class="inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-sm font-semibold text-neutral-700 transition hover:-translate-y-0.5 hover:border-indigo-300 hover:text-indigo-600 dark:border-neutral-800 dark:text-neutral-300 dark:hover:border-indigo-800 dark:hover:text-indigo-400"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <polyline points="2 7 12 13 22 7"></polyline>
+            </svg>
             akaban01@gmail.com
           </a>
           <a
             href="https://github.com/akaban01"
             target="_blank"
             rel="noopener"
-            class="text-indigo-600 hover:underline dark:text-indigo-400"
+            class="inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-sm font-semibold text-neutral-700 transition hover:-translate-y-0.5 hover:border-indigo-300 hover:text-indigo-600 dark:border-neutral-800 dark:text-neutral-300 dark:hover:border-indigo-800 dark:hover:text-indigo-400"
           >
             GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
           </a>
           <a
             href="https://linkedin.com/in/yourusername"
             target="_blank"
             rel="noopener"
-            class="text-indigo-600 hover:underline dark:text-indigo-400"
+            class="inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-sm font-semibold text-neutral-700 transition hover:-translate-y-0.5 hover:border-indigo-300 hover:text-indigo-600 dark:border-neutral-800 dark:text-neutral-300 dark:hover:border-indigo-800 dark:hover:text-indigo-400"
           >
             LinkedIn
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
           </a>
         </div>
-        <ContactForm />
+        <div data-reveal style="--reveal-delay:100ms">
+          <ContactForm />
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="border-t border-neutral-200 px-6 py-6 text-sm text-neutral-500 dark:border-neutral-800 dark:text-neutral-500">
-    <div class="mx-auto max-w-3xl">
+  <footer class="border-t border-neutral-200/80 px-6 py-8 dark:border-neutral-800/80">
+    <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 text-sm text-neutral-500 dark:text-neutral-500">
       <p>&copy; {new Date().getFullYear()} Faizan. Built with Astro + Tailwind.</p>
+      <a href="#" class="inline-flex items-center gap-1 font-medium text-neutral-600 hover:text-indigo-600 dark:text-neutral-400 dark:hover:text-indigo-400">
+        Back to top
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5">
+          <line x1="12" y1="19" x2="12" y2="5"></line>
+          <polyline points="5 12 12 5 19 12"></polyline>
+        </svg>
+      </a>
     </div>
   </footer>
 </Layout>

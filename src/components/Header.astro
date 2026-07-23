@@ -8,43 +8,134 @@ const links = [
 ];
 ---
 
-<header class="sticky top-0 z-10 border-b border-neutral-200 bg-white/80 backdrop-blur dark:border-neutral-800 dark:bg-neutral-950/80">
-  <div class="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
-    <a href="#" class="font-bold text-neutral-900 dark:text-neutral-100">Faizan</a>
-    <nav class="flex gap-6">
+<header
+  id="site-header"
+  class="sticky top-0 z-40 border-b border-neutral-200/80 bg-white/70 backdrop-blur-lg transition-shadow dark:border-neutral-800/80 dark:bg-neutral-950/70"
+>
+  <div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4 sm:px-8">
+    <a href="#" class="font-display text-lg font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+      Faizan<span class="text-indigo-500">.</span>
+    </a>
+
+    <nav class="hidden gap-8 md:flex">
       {links.map((link) => (
-        <a
-          href={link.href}
-          class="text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
-        >
+        <a href={link.href} data-nav-link data-target={link.href.slice(1)} class="nav-link text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">
           {link.label}
         </a>
       ))}
     </nav>
-    <button
-      id="theme-toggle"
-      aria-label="Toggle dark mode"
-      class="flex h-9 w-9 items-center justify-center rounded-lg border border-neutral-200 text-sm dark:border-neutral-800"
-    >
-      <span id="theme-icon">🌙</span>
-    </button>
+
+    <div class="flex items-center gap-2">
+      <button
+        id="theme-toggle"
+        aria-label="Toggle dark mode"
+        class="flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 text-sm transition hover:scale-105 hover:border-indigo-300 dark:border-neutral-800 dark:hover:border-indigo-700"
+      >
+        <span id="theme-icon" class="inline-block transition-transform duration-300">🌙</span>
+      </button>
+      <button
+        id="mobile-menu-toggle"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-800 md:hidden"
+      >
+        <svg id="menu-icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <svg id="menu-icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden h-4 w-4">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
   </div>
+
+  <nav id="mobile-menu" class="hidden flex-col gap-1 border-t border-neutral-200/80 px-6 py-3 dark:border-neutral-800/80 md:hidden">
+    {links.map((link) => (
+      <a href={link.href} data-nav-link data-target={link.href.slice(1)} class="rounded-lg px-3 py-2.5 text-sm font-medium text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-900">
+        {link.label}
+      </a>
+    ))}
+  </nav>
 </header>
 
 <script is:inline>
-  const root = document.documentElement;
-  const toggle = document.getElementById('theme-toggle');
-  const icon = document.getElementById('theme-icon');
+  (() => {
+    const root = document.documentElement;
+    const toggle = document.getElementById('theme-toggle');
+    const icon = document.getElementById('theme-icon');
 
-  function syncIcon() {
-    if (icon) icon.textContent = root.classList.contains('dark') ? '☀️' : '🌙';
-  }
-
-  syncIcon();
-
-  toggle?.addEventListener('click', () => {
-    root.classList.toggle('dark');
-    localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+    function syncIcon() {
+      if (!icon) return;
+      icon.textContent = root.classList.contains('dark') ? '☀️' : '🌙';
+    }
     syncIcon();
-  });
+
+    toggle?.addEventListener('click', () => {
+      root.classList.toggle('dark');
+      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+      icon.style.transform = 'rotate(180deg)';
+      syncIcon();
+      setTimeout(() => {
+        icon.style.transform = 'rotate(0deg)';
+      }, 300);
+    });
+
+    const header = document.getElementById('site-header');
+    const onScroll = () => {
+      header?.setAttribute('data-scrolled', window.scrollY > 8 ? 'true' : 'false');
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    const menuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const openIcon = document.getElementById('menu-icon-open');
+    const closeIcon = document.getElementById('menu-icon-close');
+
+    menuToggle?.addEventListener('click', () => {
+      const isOpen = mobileMenu?.classList.toggle('flex');
+      mobileMenu?.classList.toggle('hidden');
+      openIcon?.classList.toggle('hidden', !!isOpen);
+      closeIcon?.classList.toggle('hidden', !isOpen);
+      menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    mobileMenu?.querySelectorAll('a').forEach((a) =>
+      a.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex');
+        openIcon?.classList.remove('hidden');
+        closeIcon?.classList.add('hidden');
+        menuToggle?.setAttribute('aria-expanded', 'false');
+      })
+    );
+
+    const navLinks = document.querySelectorAll('[data-nav-link]');
+    const sections = Array.from(navLinks)
+      .map((link) => document.getElementById(link.getAttribute('data-target')))
+      .filter(Boolean);
+
+    if ('IntersectionObserver' in window && sections.length) {
+      const spy = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              navLinks.forEach((link) => {
+                link.removeAttribute('data-active');
+                if (link.getAttribute('data-target') === entry.target.id) {
+                  link.setAttribute('data-active', 'true');
+                }
+              });
+            }
+          });
+        },
+        { rootMargin: '-45% 0px -50% 0px' }
+      );
+      sections.forEach((section) => spy.observe(section));
+    }
+  })();
 </script>

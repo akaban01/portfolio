@@ -4,7 +4,7 @@
 const STATICFORMS_API_KEY = 'YOUR_STATICFORMS_API_KEY';
 ---
 
-<form id="contact-form" class="grid gap-4">
+<form id="contact-form" class="grid gap-4 rounded-2xl border border-neutral-200 bg-white/60 p-6 shadow-sm backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-900/60 sm:p-8">
   <div class="grid gap-4 sm:grid-cols-2">
     <div>
       <label for="cf-name" class="mb-1 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Name</label>
@@ -13,7 +13,7 @@ const STATICFORMS_API_KEY = 'YOUR_STATICFORMS_API_KEY';
         name="name"
         type="text"
         required
-        class="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100"
+        class="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100 dark:focus:border-indigo-400"
       />
     </div>
     <div>
@@ -23,7 +23,7 @@ const STATICFORMS_API_KEY = 'YOUR_STATICFORMS_API_KEY';
         name="email"
         type="email"
         required
-        class="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100"
+        class="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100 dark:focus:border-indigo-400"
       />
     </div>
   </div>
@@ -34,7 +34,7 @@ const STATICFORMS_API_KEY = 'YOUR_STATICFORMS_API_KEY';
       name="message"
       rows="4"
       required
-      class="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100"
+      class="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100 dark:focus:border-indigo-400"
     ></textarea>
   </div>
 
@@ -51,9 +51,13 @@ const STATICFORMS_API_KEY = 'YOUR_STATICFORMS_API_KEY';
   <div class="flex items-center gap-4">
     <button
       type="submit"
-      class="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90"
+      class="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-gradient-to-r from-indigo-600 to-fuchsia-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-600/20 transition hover:shadow-indigo-600/40 disabled:cursor-not-allowed disabled:opacity-70"
     >
-      Send message
+      <svg id="cf-spinner" class="hidden h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+      </svg>
+      <span id="cf-submit-label">Send message</span>
     </button>
     <p id="cf-status" class="text-sm text-neutral-600 dark:text-neutral-400" role="status"></p>
   </div>
@@ -62,12 +66,16 @@ const STATICFORMS_API_KEY = 'YOUR_STATICFORMS_API_KEY';
 <script is:inline define:vars={{ STATICFORMS_API_KEY }}>
   const form = document.getElementById('contact-form');
   const status = document.getElementById('cf-status');
+  const spinner = document.getElementById('cf-spinner');
+  const submitLabel = document.getElementById('cf-submit-label');
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const submitBtn = form.querySelector('button[type="submit"]');
     submitBtn.disabled = true;
-    status.textContent = 'Sending…';
+    spinner.classList.remove('hidden');
+    submitLabel.textContent = 'Sending…';
+    status.textContent = '';
 
     const fd = new FormData(form);
     const payload = {
@@ -101,6 +109,8 @@ const STATICFORMS_API_KEY = 'YOUR_STATICFORMS_API_KEY';
       status.textContent = 'Network error — please try again.';
     } finally {
       submitBtn.disabled = false;
+      spinner.classList.add('hidden');
+      submitLabel.textContent = 'Send message';
     }
   });
 </script>

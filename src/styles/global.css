@@ -1,3 +1,142 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-image: radial-gradient(circle, rgb(0 0 0 / 0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.dark body {
+  background-image: radial-gradient(circle, rgb(255 255 255 / 0.07) 1px, transparent 1px);
+}
+
+::selection {
+  background-color: rgb(99 102 241 / 0.35);
+}
+
+/* Animated aurora blobs (hero background) */
+@keyframes blob {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -40px) scale(1.15);
+  }
+  66% {
+    transform: translate(-24px, 24px) scale(0.9);
+  }
+}
+
+.animate-blob {
+  animation: blob 18s infinite ease-in-out;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Animated gradient text */
+@keyframes gradient-shift {
+  to {
+    background-position: 300% center;
+  }
+}
+
+.text-gradient-animate {
+  background-image: linear-gradient(90deg, #4338ca, #a21caf, #0e7490, #4338ca);
+  background-size: 300% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradient-shift 6s linear infinite;
+}
+
+.dark .text-gradient-animate {
+  background-image: linear-gradient(90deg, #818cf8, #e879f9, #22d3ee, #818cf8);
+}
+
+/* Scroll reveal (progressive enhancement: only hides content once JS confirms it will reveal it) */
+html.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+html.reveal-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Header shadow on scroll */
+header[data-scrolled="true"] {
+  box-shadow: 0 1px 0 0 rgb(0 0 0 / 0.06), 0 8px 24px -12px rgb(0 0 0 / 0.15);
+}
+
+.dark header[data-scrolled="true"] {
+  box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.06), 0 8px 24px -12px rgb(0 0 0 / 0.5);
+}
+
+/* Nav underline */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -4px;
+  height: 2px;
+  border-radius: 9999px;
+  background-image: linear-gradient(90deg, #6366f1, #d946ef);
+  transition: right 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link[data-active="true"]::after {
+  right: 0;
+}
+
+.nav-link[data-active="true"] {
+  color: #4f46e5;
+}
+
+.dark .nav-link[data-active="true"] {
+  color: #a5b4fc;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
