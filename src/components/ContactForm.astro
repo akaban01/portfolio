@@ -1,0 +1,106 @@
+---
+// Sign up free at staticforms.dev, verify your email, then copy your API key
+// from the dashboard (Account > API Key) and paste it in place of the value below.
+const STATICFORMS_API_KEY = 'YOUR_STATICFORMS_API_KEY';
+---
+
+<form id="contact-form" class="grid gap-4">
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div>
+      <label for="cf-name" class="mb-1 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Name</label>
+      <input
+        id="cf-name"
+        name="name"
+        type="text"
+        required
+        class="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100"
+      />
+    </div>
+    <div>
+      <label for="cf-email" class="mb-1 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Email</label>
+      <input
+        id="cf-email"
+        name="email"
+        type="email"
+        required
+        class="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100"
+      />
+    </div>
+  </div>
+  <div>
+    <label for="cf-message" class="mb-1 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Message</label>
+    <textarea
+      id="cf-message"
+      name="message"
+      rows="4"
+      required
+      class="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100"
+    ></textarea>
+  </div>
+
+  <!-- Spam honeypot: must stay visually hidden via CSS (not type="hidden") and empty. -->
+  <input
+    type="text"
+    name="honeypot"
+    tabindex="-1"
+    autocomplete="off"
+    aria-hidden="true"
+    style="position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;"
+  />
+
+  <div class="flex items-center gap-4">
+    <button
+      type="submit"
+      class="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90"
+    >
+      Send message
+    </button>
+    <p id="cf-status" class="text-sm text-neutral-600 dark:text-neutral-400" role="status"></p>
+  </div>
+</form>
+
+<script is:inline define:vars={{ STATICFORMS_API_KEY }}>
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('cf-status');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    status.textContent = 'Sending…';
+
+    const fd = new FormData(form);
+    const payload = {
+      apiKey: STATICFORMS_API_KEY,
+      name: fd.get('name'),
+      email: fd.get('email'),
+      message: fd.get('message'),
+      honeypot: fd.get('honeypot') || '',
+      replyTo: fd.get('email'),
+    };
+
+    try {
+      const response = await fetch('https://api.staticforms.dev/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      let data = {};
+      try {
+        data = await response.json();
+      } catch (_) {}
+
+      if (response.ok && data.success) {
+        status.textContent = 'Thanks! Your message has been sent.';
+        form.reset();
+      } else {
+        status.textContent = `Error: ${data.message || data.error || 'could not send your message.'}`;
+      }
+    } catch (_) {
+      status.textContent = 'Network error — please try again.';
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+</script>

@@ -1,0 +1,33 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  tags: string[];
+  liveUrl?: string;
+  codeUrl?: string;
+}
+
+const { title, description, tags, liveUrl, codeUrl } = Astro.props;
+---
+
+<article class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+  <h3 class="mb-2 font-semibold text-neutral-900 dark:text-neutral-100">{title}</h3>
+  <p class="mb-4 text-sm text-neutral-600 dark:text-neutral-400">{description}</p>
+  <div class:list={["flex flex-wrap gap-2", (liveUrl || codeUrl) && "mb-4"]}>
+    {tags.map((tag) => (
+      <span class="rounded-full bg-neutral-100 px-2.5 py-1 text-xs text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400">
+        {tag}
+      </span>
+    ))}
+  </div>
+  {(liveUrl || codeUrl) && (
+    <div class="flex gap-4 text-sm font-semibold">
+      {liveUrl && (
+        <a href={liveUrl} target="_blank" rel="noopener" class="text-indigo-600 hover:underline dark:text-indigo-400">Live</a>
+      )}
+      {codeUrl && (
+        <a href={codeUrl} target="_blank" rel="noopener" class="text-indigo-600 hover:underline dark:text-indigo-400">Code</a>
+      )}
+    </div>
+  )}
+</article>

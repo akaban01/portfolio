@@ -1,0 +1,69 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Faizan — Portfolio',
+  description = 'Portfolio of Faizan, software developer — experience, projects, and contact.',
+} = Astro.props;
+
+const canonicalURL = new URL(import.meta.env.BASE_URL.replace(/\/?$/, '/'), Astro.site);
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Faizan',
+  url: canonicalURL.href,
+  jobTitle: 'Software Developer',
+  description,
+  sameAs: ['https://github.com/akaban01'],
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}favicon.svg`} />
+    <link rel="canonical" href={canonicalURL.href} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Faizan" />
+    <!-- og:image intentionally omitted: no real ~1200x630 social-preview image exists yet. Add one under src/assets and wire it up here. -->
+
+    <!-- Twitter/X Card (falls back to the og: tags above; "summary" works with no large image) -->
+    <meta name="twitter:card" content="summary" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
+
+    <script is:inline>
+      let stored = null;
+      try {
+        stored = localStorage.getItem('theme');
+      } catch (e) {}
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
+
+    <!-- GoatCounter (privacy-friendly analytics, no cookies/PII). Sign up free at goatcounter.com and replace YOURCODE. -->
+    <script is:inline data-goatcounter="https://YOURCODE.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+  </head>
+  <body class="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 transition-colors">
+    <slot />
+  </body>
+</html>

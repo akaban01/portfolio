@@ -1,0 +1,269 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+const skillGroups = [
+  {
+    category: 'Languages & Frameworks',
+    items: ['TypeScript', 'JavaScript', 'React', 'Node.js', 'PHP', 'Python', 'C#', 'Java', 'Groovy'],
+  },
+  {
+    category: 'Frontend & Accessibility',
+    items: ['HTML5', 'CSS/SCSS', 'Bootstrap', 'jQuery', 'Responsive Design', 'Web Accessibility (ADA/WCAG)', 'UI/UX'],
+  },
+  {
+    category: 'CMS Platforms',
+    items: ['Crafter CMS', 'Adobe Experience Manager (AEM)', 'WordPress'],
+  },
+  {
+    category: 'Data & APIs',
+    items: ['REST APIs', 'GraphQL', 'OpenSearch', 'PostgreSQL', 'MySQL', 'SQL Server'],
+  },
+  {
+    category: 'Data Visualization',
+    items: ['Highcharts', 'Google Charts', 'D3.js'],
+  },
+  {
+    category: 'DevOps & Cloud',
+    items: ['Git', 'GitHub', 'CI/CD', 'Docker', 'AWS', 'Azure'],
+  },
+  {
+    category: 'Practices',
+    items: ['Agile (Scrum/Kanban)', 'Full-stack Development'],
+  },
+];
+
+const experience = [
+  {
+    role: 'Software Developer',
+    company: 'ERCOT (Electric Reliability Council of Texas)',
+    dates: 'April 2019 – Present',
+    bullets: [
+      'Developed and maintained CMS solutions using Crafter CMS and Adobe Experience Manager (AEM), building reusable components, page templates, and authoring blocks to enable efficient content publishing.',
+      'Built ADA/WCAG-compliant front-end interfaces using Bootstrap, jQuery, HTML5, CSS/SCSS, and JavaScript to accurately implement designer mockups.',
+      'Wrote Groovy scripts to integrate data from external sources into CMS workflows.',
+      'Implemented sitewide search using OpenSearch, writing queries and relevance scoring to power fast, accurate content discovery.',
+      'Built a custom dashboard for business users to test search terms and tune relevance scoring.',
+      'Created interactive data visualizations using Highcharts consuming REST APIs.',
+      'Architected and built a custom lightweight CMS for smaller applications, reducing licensing costs and improving cross-team efficiency.',
+      'Collaborated closely with designers and business stakeholders; demoed prototypes and gathered feedback to align deliverables with business goals.',
+      'Trained and onboarded content authors, documented processes, and supported junior developers to accelerate team productivity.',
+      'Worked in Agile (Scrum/Kanban) and Waterfall environments within a 5–7 person team.',
+    ],
+  },
+  {
+    role: 'Software Developer',
+    company: 'Deluxe Corporation',
+    dates: 'October 2016 – March 2019',
+    bullets: [
+      'Modernized customer-facing e-commerce applications on Oracle ATG Web Commerce for deluxe.com / Shop Deluxe storefronts.',
+      'Rewrote legacy applications to deliver mobile-first, responsive designs, significantly improving end-user experience.',
+      'Built responsive layouts using Bootstrap, consuming REST APIs with vanilla JavaScript and jQuery to create dynamic, data-driven interfaces.',
+      'Collaborated with designers to finalize and implement UI designs, presenting solutions to cross-functional departments.',
+    ],
+  },
+  {
+    role: 'Software Developer',
+    company: 'Sabre Corporation',
+    dates: 'January 2016 – October 2016',
+    bullets: [
+      'Solely owned the design, development, and deployment of a two-instance WordPress release notes platform on a 7-person team, replacing a painful, manual PDF-based process with an automated digital workflow.',
+      'Built an internal site for collecting, reviewing, and approving release notes, and a public-facing site with tagging and search for easy end-user access.',
+      'Developed a custom WordPress theme, custom forms, and PHP functions to power the submission-and-approval workflow end to end.',
+      'Engineered an automated pipeline moving approved content from the internal instance to the public site, improving cross-team visibility and reducing time spent locating documentation.',
+      'Migrated legacy PDF content into interactive, searchable formats, dramatically improving discoverability.',
+      'Independently built interactive charting dashboards using Google Charts and other libraries, consuming REST APIs to surface real-time data.',
+    ],
+  },
+  {
+    role: 'Software Developer',
+    company: 'Multivision',
+    dates: 'July 2015 – January 2016',
+    bullets: [
+      'Developed a Java-based internal reimbursement application, building the business logic layer in Java to handle processing from front end to back end.',
+      'Wrote Spring controllers to handle GET and POST requests from JSP files, using dependency injection via Spring context.',
+      'Created JSP views with HTML, CSS, JavaScript, Bootstrap, jQuery, Spring tag library, and JSTL Core tags, with client-side validation.',
+      'Built interactive, mobile-responsive views using Bootstrap.',
+      'Implemented RESTful web service clients using Jersey.',
+      'Participated in code reviews to ensure adherence to project standards.',
+    ],
+  },
+  {
+    role: 'C# .NET Developer',
+    company: 'CFC Tech Services',
+    dates: 'June 2013',
+    bullets: [
+      'Developed a C# desktop application for a feed management system using Windows Forms.',
+      'Wrote C# application logic and T-SQL stored procedures to handle full CRUD operations based on application requirements.',
+      'Managed the database using Microsoft SQL Server Management tools.',
+      'Manually tested Windows and web applications to ensure quality.',
+      'Documented and reported work to the supervisor.',
+    ],
+  },
+];
+
+const projects = [
+  {
+    title: 'AI-Native Corporate CMS',
+    description:
+      'Designed and built a custom CMS for corporate workflows from the ground up, with AI woven into the content pipeline and granular roles & permissions for enterprise teams. Also covers the essentials expected of a modern CMS: version history and drafts, a media library, approval workflows, scheduled publishing, audit logs, full-text search, and an API for headless integrations.',
+    tags: ['AI-Native', 'RBAC', 'Workflow Automation', 'Enterprise'],
+  },
+  {
+    title: 'Stripe Payment Processing',
+    description:
+      'Integrated Stripe to handle end-to-end payment processing for a production application, covering checkout, invoicing, and transaction management.',
+    tags: ['Stripe', 'Payments', 'API Integration'],
+  },
+  {
+    title: 'Desktop-to-Browser Extension Migration',
+    description:
+      'Converted a suite of desktop-heavy applications into lightweight, user-friendly browser extensions, making everyday workflows smoother and more efficient. The move also shrank the attack surface and strengthened data, management, and security-related workflows across the board.',
+    tags: ['Browser Extensions', 'Security', 'Workflow Automation'],
+  },
+];
+---
+
+<Layout>
+  <Header />
+
+  <main>
+    <section class="mx-auto max-w-3xl px-6 pb-16 pt-24">
+      <h1 class="mb-3 text-4xl font-bold text-neutral-900 dark:text-neutral-100">
+        Hi, I'm <span class="text-indigo-600 dark:text-indigo-400">Faizan</span>.
+      </h1>
+      <p class="mb-7 max-w-lg text-lg text-neutral-600 dark:text-neutral-400">
+        Software developer specializing in CMS platforms, full-stack web development, and accessible,
+        data-driven interfaces.
+      </p>
+      <div class="flex gap-3">
+        <a
+          href="#projects"
+          class="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90"
+        >
+          See my work
+        </a>
+        <a
+          href="#contact"
+          class="rounded-lg border border-neutral-200 px-5 py-2.5 text-sm font-semibold text-neutral-900 hover:bg-neutral-50 dark:border-neutral-800 dark:text-neutral-100 dark:hover:bg-neutral-900"
+        >
+          Get in touch
+        </a>
+      </div>
+    </section>
+
+    <section id="about" class="border-t border-neutral-200 px-6 py-14 dark:border-neutral-800">
+      <div class="mx-auto max-w-3xl">
+        <h2 class="mb-5 text-2xl font-semibold text-neutral-900 dark:text-neutral-100">About</h2>
+        <p class="mb-4 text-neutral-600 dark:text-neutral-400">
+          Software developer with experience across content management platforms (Crafter CMS, Adobe
+          Experience Manager), e-commerce, and full-stack web development. Currently building and
+          maintaining CMS solutions at ERCOT, where I've architected reusable component systems,
+          ADA/WCAG-compliant interfaces, and a custom lightweight CMS that cut licensing costs across
+          teams.
+        </p>
+        <p class="mb-5 text-neutral-600 dark:text-neutral-400">
+          Before that, I modernized e-commerce storefronts at Deluxe Corporation and built an
+          end-to-end release-notes platform at Sabre. I care about accessible, maintainable interfaces
+          and enjoy the kind of problem where design, data, and infrastructure all have to work
+          together. Bachelor's degree, Minnesota State University, Mankato.
+        </p>
+        <a
+          href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}resume.pdf`}
+          class="text-sm font-semibold text-indigo-600 hover:underline dark:text-indigo-400"
+        >
+          Download résumé (PDF) →
+        </a>
+      </div>
+    </section>
+
+    <section id="skills" class="border-t border-neutral-200 px-6 py-14 dark:border-neutral-800">
+      <div class="mx-auto max-w-3xl">
+        <h2 class="mb-5 text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Skills</h2>
+        <div class="grid gap-4">
+          {skillGroups.map((group) => (
+            <div>
+              <h3 class="mb-2 text-sm font-semibold text-neutral-500 dark:text-neutral-500">{group.category}</h3>
+              <div class="flex flex-wrap gap-2">
+                {group.items.map((skill) => (
+                  <span class="rounded-full bg-neutral-100 px-3 py-1.5 text-sm text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="border-t border-neutral-200 px-6 py-14 dark:border-neutral-800">
+      <div class="mx-auto max-w-3xl">
+        <h2 class="mb-5 text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Experience</h2>
+        <div class="grid gap-8">
+          {experience.map((job) => (
+            <div>
+              <div class="mb-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <h3 class="font-semibold text-neutral-900 dark:text-neutral-100">
+                  {job.role} · {job.company}
+                </h3>
+                <span class="text-sm text-neutral-500 dark:text-neutral-500">{job.dates}</span>
+              </div>
+              <ul class="list-disc space-y-1.5 pl-5 text-sm text-neutral-600 dark:text-neutral-400">
+                {job.bullets.map((bullet) => <li>{bullet}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="border-t border-neutral-200 px-6 py-14 dark:border-neutral-800">
+      <div class="mx-auto max-w-3xl">
+        <h2 class="mb-5 text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Projects</h2>
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
+          {projects.map((project) => <ProjectCard {...project} />)}
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="border-t border-neutral-200 px-6 py-14 dark:border-neutral-800">
+      <div class="mx-auto max-w-3xl">
+        <h2 class="mb-3 text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Contact</h2>
+        <p class="mb-5 text-neutral-600 dark:text-neutral-400">
+          Want to work together or just say hi? Send a message directly, or reach out on:
+        </p>
+        <div class="mb-8 flex flex-wrap gap-5 font-semibold">
+          <a href="mailto:akaban01@gmail.com" class="text-indigo-600 hover:underline dark:text-indigo-400">
+            akaban01@gmail.com
+          </a>
+          <a
+            href="https://github.com/akaban01"
+            target="_blank"
+            rel="noopener"
+            class="text-indigo-600 hover:underline dark:text-indigo-400"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://linkedin.com/in/yourusername"
+            target="_blank"
+            rel="noopener"
+            class="text-indigo-600 hover:underline dark:text-indigo-400"
+          >
+            LinkedIn
+          </a>
+        </div>
+        <ContactForm />
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-neutral-200 px-6 py-6 text-sm text-neutral-500 dark:border-neutral-800 dark:text-neutral-500">
+    <div class="mx-auto max-w-3xl">
+      <p>&copy; {new Date().getFullYear()} Faizan. Built with Astro + Tailwind.</p>
+    </div>
+  </footer>
+</Layout>
